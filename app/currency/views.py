@@ -12,6 +12,7 @@ def generate_password(password_length: int = 10) -> str:
     password = ''
     for _ in range(password_length):
         password += random.choice(chars)
+    breakpoint()
     return password
 
 
