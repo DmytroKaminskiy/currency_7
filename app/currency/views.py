@@ -12,7 +12,7 @@ def generate_password(password_length: int = 10) -> str:
     password = ''
     for _ in range(password_length):
         password += random.choice(chars)
-    print(1)
+    print(111)
     return password
 
 
