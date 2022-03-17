@@ -1,0 +1,39 @@
+CRUD
+C - create
+R - read
+U - update
+D - delete
+
+wsl2
+
+Request Method
+
+GET
+Params in Request URL (http://localhost/create/?name=Dima&age=30)
+CACHE
+
+POST
+http://localhost/create/
+Params in body
+name=Dima&age=30
+
+NO CACHE
+
+GET
+'''
+http://localhost/create/?name=Dima&age=30
+'''
+
+POST
+'''
+http://localhost/create/
+
+name=Dima&age=30
+'''
+
+GET - read
+POST - create (not idempotent)
+PUT - update
+PATCH - partial update
+DELETE - delete ( smth x 0)
+CRUD

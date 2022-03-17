@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <a href="/rate/create/">Create Rate</a>
     {% for rate in rates %}
       <p>
           Id: {{ rate.id }}
           sale: {{ rate.sale }}
           Buy: {{ rate.buy }}
           Created: {{ rate.created|date:"Y-m-d" }}
+          <a href="/rate/update/{{ rate.id }}/">Edit</a>
+          <a href="/rate/delete/{{ rate.id }}/">Delete</a>
       </p>
       <hr>
     {% endfor %}
