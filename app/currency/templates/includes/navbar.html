@@ -1,4 +1,5 @@
 <nav>
-    <a href="/">Home</a>
-    <a href="/rate/list/">Rate List</a>
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'currency:rate_list' %}">Rate List</a>
 </nav>
+{# url == reverse #}

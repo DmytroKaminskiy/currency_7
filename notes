@@ -37,3 +37,10 @@ PUT - update
 PATCH - partial update
 DELETE - delete ( smth x 0)
 CRUD
+
+
+PATH: /currency/list/, name: rate_list
+
+x100
+reverse('rate_list') -> '/currency/list/'
+
