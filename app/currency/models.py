@@ -12,8 +12,11 @@ class Rate(models.Model):
     sale = models.DecimalField(max_digits=10, decimal_places=2)
 
 
-class ContactUs:
-    pass
+class ContactUs(models.Model):
+    subject = models.CharField(max_length=128)
+    message_body = models.CharField(max_length=2048)  # models.AreaField
+    email = models.EmailField()
+    created = models.DateTimeField(auto_now_add=True)
 
 
 class Source:
