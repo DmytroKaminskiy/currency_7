@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.urls import reverse_lazy
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
 
+    'accounts',
     'currency',
 ]
 
@@ -60,7 +63,9 @@ ROOT_URLCONF = 'settings.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -149,3 +154,6 @@ EMAIL_FILE_PATH = '/home/dima/projects/hillel/currency_7/smtp_emails'
 # EMAIL_PORT = 587
 EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
 # EMAIL_HOST_PASSWORD = 'qwerty123456qwerty'
+
+LOGIN_REDIRECT_URL = reverse_lazy('index')
+AUTH_USER_MODEL = 'accounts.User'

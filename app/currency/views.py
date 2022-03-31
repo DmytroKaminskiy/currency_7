@@ -78,5 +78,38 @@ class ContactUsCreate(CreateView):
 class ExampleView(View):
     def get(self, request):
         from django.http import HttpResponse
-        a = 1 + 2
-        return HttpResponse(f'Result {a}')
+        from django.contrib.sessions.models import Session
+        from django.contrib.auth.models import User
+
+        # print(request.COOKIES['sessionid'])
+        session_id = request.COOKIES.get('sessionid')
+        if session_id:
+            print('SessionId is present:', session_id)
+
+            try:
+                session_obj = Session.objects.get(session_key=session_id)
+            except Session.DoesNotExist:
+                print('Session not found')
+            else:
+                print(f'Session found:', session_obj)
+                user_id = session_obj.get_decoded().get('_auth_user_id')
+                try:
+                    user = User.objects.get(id=user_id)
+                except User.DoesNotExist:
+                    print('User Not Found')
+                else:
+                    print(f'Request user email is ', user.email)
+                    print(f'Request user email is ', request.user.email)
+
+        else:
+            print('is not authenticated')
+
+        if request.user.is_authenticated:
+            if request.COOKIES.get('example_page_visited'):
+                return HttpResponse('Already visited')
+            else:
+                response = HttpResponse('First Visit')
+                response.set_cookie('example_page_visited', True)
+                return response
+        else:
+            return HttpResponse('Please, log in.')
