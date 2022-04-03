@@ -66,7 +66,6 @@ class ContactUsCreate(CreateView):
             [email_from],
             fail_silently = False,
         )
-        foo(data)
 
         return response
 

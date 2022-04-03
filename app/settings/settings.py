@@ -146,9 +146,9 @@ if DEBUG:
 
 # email settings
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = '/home/dima/projects/hillel/currency_7/smtp_emails'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = '/home/dima/projects/hillel/currency_7/smtp_emails'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_USE_TLS = True
 # EMAIL_PORT = 587
@@ -157,3 +157,8 @@ EMAIL_HOST_USER = 'testtestapp454545@gmail.com'
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 AUTH_USER_MODEL = 'accounts.User'
+
+
+# Custom settings
+DOMAIN = 'localhost:8000'
+HTTP_SCHEMA = 'http'
