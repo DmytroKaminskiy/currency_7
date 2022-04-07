@@ -5,6 +5,7 @@
     {% for rate in rate_list %}
       <p>
           Id: {{ rate.id }}
+          Source: {{ rate.source.name }}
           sale: {{ rate.sale }}
           Buy: {{ rate.buy }}
           Type: {{ rate.get_type_display }}
