@@ -2,7 +2,9 @@
 
 {% block content %}
     <div>My Profile</div>
-    <form method="post">
+    <img src="{{ request.user.avatar_url }}" width="150" height="150" class="rounded">
+
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Update Profile</button>

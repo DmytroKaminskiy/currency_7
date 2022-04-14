@@ -1,19 +1,86 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="{% url 'currency:rate_create' %}">Create Rate</a>
-    {% for rate in rate_list %}
-      <p>
-          Id: {{ rate.id }}
-          Source: {{ rate.source.name }}
-          sale: {{ rate.sale }}
-          Buy: {{ rate.buy }}
-          Type: {{ rate.get_type_display }}
-          Created: {{ rate.created|date:"Y-m-d" }}
-          <a href="{% url 'currency:rate_detail' rate.id %}">Details</a>
-          <a href="{% url 'currency:rate_update' rate.id %}">Edit</a>
-          <a href="{% url 'currency:rate_delete' rate.id %}">Delete</a>
-      </p>
-      <hr>
-    {% endfor %}
+    <div class="row">
+        <div class="col">
+            <a href="{% url 'currency:rate_create' %}">Create Rate</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Source Name</th>
+                    <th scope="col">Buy</th>
+                    <th scope="col">Sale</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for rate in rate_list %}
+                    <tr>
+                        <th scope="row">{{ rate.id }}</th>
+                        <td>{{ rate.source.name }}</td>
+                        <td>{{ rate.buy }}</td>
+                        <td>{{ rate.sale }}</td>
+                        <td>{{ rate.get_type_display }}</td>
+                        <td>{{ rate.created }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="{% url 'currency:rate_detail' rate.id %}">Details</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'currency:rate_update' rate.id %}">Update</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'currency:rate_delete' rate.id %}">Delete</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {#    <div class="row">#}
+    {#        <div class="col">#}
+    {#            Example1#}
+    {#        </div>#}
+    {#        #}
+    {#        <div class="col">#}
+    {#            Example2#}
+    {#        </div>#}
+    {#        #}
+    {#        <div class="col">#}
+    {#            Example3#}
+    {#        </div>#}
+    {#    </div>#}
+
+
+    {#  TODO  #}
+    <style>
+        p {
+        {#color: red;#}
+        }
+    </style>
+    <script>
+{#    alert('Hello World');#}
+
+
+
+
+
+
+
+
+
+    </script>
 {% endblock content %}
