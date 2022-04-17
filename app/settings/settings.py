@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
@@ -171,3 +172,11 @@ HTTP_SCHEMA = 'http'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 MEDIA_URL = '/media/'
 
+CELERY_BROKER_URL = f'amqp://guest:guest@localhost:5672//'
+CELERY_BEAT_SCHEDULE = {
+    'debug': {
+        'task': 'accounts.tasks.debug',
+        'schedule': crontab(minute='0', hour='0', day_of_week='mon'),
+        # 'schedule': crontab(minute='*/15'),
+    },
+}

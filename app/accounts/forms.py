@@ -1,9 +1,7 @@
 from django import forms
-from django.conf import settings
-from django.core.mail import send_mail
-from django.urls import reverse
 
 from accounts.models import User
+from accounts.tasks import send_activation_email
 
 
 class SignUpForm(forms.ModelForm):
@@ -32,21 +30,14 @@ class SignUpForm(forms.ModelForm):
         if commit:
             user.save()
 
-        self._send_activation_email(user)
+        send_activation_email.delay(user.username, user.email)
 
         return user
 
-    def _send_activation_email(self, user):
-        subject = 'Sign Up'
-        message_body = f'''
-                Activation Link:
-                {settings.HTTP_SCHEMA}://{settings.DOMAIN}{reverse('accounts:activate-user', args=[user.username])}
-                '''
-        email_from = settings.EMAIL_HOST_USER
-        send_mail(
-            subject,
-            message_body,
-            email_from,
-            [user.email],
-            fail_silently=False,
-        )
+
+'''
+3 2
+
+Server
+1 - 10 sec
+'''
