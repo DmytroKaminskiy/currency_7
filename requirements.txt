@@ -1,8 +1,11 @@
 django
+celery
+requests
+
+# dev
 django-debug-toolbar
 django-extensions
 ipython
-celery
 
 # flake8
 flake8

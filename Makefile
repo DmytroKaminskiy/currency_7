@@ -15,7 +15,7 @@ run-dev: migrate \
 	run
 
 worker:
-	cd app && celery -A settings worker -l info --autoscale 0,10
+	cd app && celery -A settings worker -l info --autoscale 1,10
 
 beat:
 	cd app && celery -A settings beat -l info
