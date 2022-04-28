@@ -7,6 +7,13 @@
         </div>
     </div>
 
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-search"></span> Apply Filters
+        </button>
+    </form>
+
     <div class="row">
         <div class="col">
             <table class="table table-striped">
@@ -39,9 +46,12 @@
                                     Actions
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="{% url 'currency:rate_detail' rate.id %}">Details</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'currency:rate_update' rate.id %}">Update</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'currency:rate_delete' rate.id %}">Delete</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="{% url 'currency:rate_detail' rate.id %}">Details</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="{% url 'currency:rate_update' rate.id %}">Update</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="{% url 'currency:rate_delete' rate.id %}">Delete</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -51,6 +61,8 @@
             </table>
         </div>
     </div>
+
+    {% include 'includes/pagination.html' %}
 
     {#    <div class="row">#}
     {#        <div class="col">#}
@@ -75,14 +87,6 @@
     </style>
     <script>
 {#    alert('Hello World');#}
-
-
-
-
-
-
-
-
 
     </script>
 {% endblock content %}

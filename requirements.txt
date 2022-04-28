@@ -1,6 +1,7 @@
 django
 celery
 requests
+django-filter
 
 # dev
 django-debug-toolbar

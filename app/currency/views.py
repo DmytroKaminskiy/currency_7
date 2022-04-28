@@ -1,16 +1,33 @@
 from django.core.mail import send_mail
+from django.http.request import QueryDict
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, View
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, View
+from django_filters.views import FilterView
 
 from currency.forms import RateForm, ContactUsForm
 from currency.models import Rate, ContactUs
+from currency.filters import RateFilter
 
 from django.conf import settings
 
 
-class RateList(ListView):
+class RateList(FilterView):
     queryset = Rate.objects.all().order_by('-id').select_related('source')
     template_name = 'rate_list.html'
+    paginate_by = 5
+    filterset_class = RateFilter
+
+    def get_context_data(self, *args, **kwargs):
+        # print(self.__class__.__mro__)
+        context = super().get_context_data(*args, **kwargs)
+
+        query_params = QueryDict(mutable=True)
+        for key, value in self.request.GET.items():
+            if key != 'page':
+                query_params[key] = value
+
+        context['filter_params'] = query_params.urlencode()
+        return context
 
 
 class RateDetail(DetailView):
