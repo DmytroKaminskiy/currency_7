@@ -13,6 +13,8 @@ urlpatterns = [
     path('rate/detail/<int:pk>/', currency_views.RateDetail.as_view(), name='rate_detail'),
     path('rate/delete/<int:pk>/', currency_views.RateDelete.as_view(), name='rate_delete'),
 
+    # path('api/rate/list/', currency_views.RateListApiExample.as_view()),
+
     # contactus
     path('contact-us/', currency_views.ContactUsCreate.as_view(), name='contactus_create'),
 ]

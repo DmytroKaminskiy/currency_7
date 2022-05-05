@@ -2,6 +2,10 @@ django
 celery
 requests
 django-filter
+djangorestframework
+drf-yasg
+djangorestframework-xml
+djangorestframework-csv
 
 # dev
 django-debug-toolbar

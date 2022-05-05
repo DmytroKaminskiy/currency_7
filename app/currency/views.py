@@ -1,4 +1,5 @@
 from django.core.mail import send_mail
+from django.http import HttpResponse
 from django.http.request import QueryDict
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, View
@@ -129,3 +130,19 @@ class ExampleView(View):
                 return response
         else:
             return HttpResponse('Please, log in.')
+
+#
+# class RateListApiExample(View):
+#     def get(self, request):
+#         import json
+#         rates = Rate.objects.all()
+#         rates_response = []
+#         for rate in rates:
+#             obj_dict = {
+#                 'id': rate.id,
+#                 'buy': str(rate.buy),
+#                 'sale': str(rate.sale),
+#             }
+#             rates_response.append(obj_dict)
+#
+#         return HttpResponse(json.dumps(rates_response), content_type='application/json')
