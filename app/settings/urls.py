@@ -12,7 +12,8 @@ urlpatterns = [
 
     path('accounts/', include('accounts.urls')),
     path('currency/', include('currency.urls')),
-    path('api/', include('api.urls')),
+    path('api/v1/', include('api.v1.urls')),
+    path('api/v2/', include('api.v2.urls')),
 
     path('__debug__/', include('debug_toolbar.urls')),
 ]
