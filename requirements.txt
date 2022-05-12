@@ -17,3 +17,7 @@ ipython
 flake8
 flake8-print
 flake8-builtins
+
+# pytest
+pytest
+pytest-django

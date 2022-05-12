@@ -3,3 +3,18 @@ Django Admin
 
 
 django save method first_name with defer('first_name')
+
+Testing
+
+1. Manual Testing (QA)
+2. Auto tests (QA), selenium
+
+3. Unit tests (developer) assert (unittests, pytest)
+
+4. Integration tests (???)
+5. Load test (???) https://locust.io/
+
+TDD - test driven development
+BDD - Behavior Driven development
+
+1. Добавить юнит тесты для ContactUs (API)

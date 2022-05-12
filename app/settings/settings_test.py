@@ -1,0 +1,4 @@
+from settings.settings import *
+
+REST_FRAMEWORK['DEFAULT_PERMISSION_CLASSES'] = ()
+MINUTES_BEFORE_ALLOW_DELETE_RATE = 60 * 24 * 365 * 100

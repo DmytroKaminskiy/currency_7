@@ -10,6 +10,8 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+app_name = 'api-v1'
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
