@@ -16,6 +16,6 @@ def pre_save_user_first_name_change(sender, instance, **kwargs):
         instance.first_name = instance.first_name.capitalize()
 
 
-@receiver(post_save, sender=User)
-def post_save_user(sender, instance, **kwargs):
-    print('USER SIGNAL POST SAVE')
+# @receiver(post_save, sender=User)
+# def post_save_user(sender, instance, **kwargs):
+#     print('USER SIGNAL POST SAVE')

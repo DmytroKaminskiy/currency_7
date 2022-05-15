@@ -2,6 +2,8 @@ from decimal import Decimal
 
 from celery import shared_task
 import requests
+from django.conf import settings
+from django.core.mail import send_mail
 
 from currency import model_choices as mch
 
@@ -12,6 +14,25 @@ def round_decimal(value: str) -> Decimal:
     """
     places = Decimal(10) ** -2
     return Decimal(value).quantize(places)
+
+
+@shared_task
+def contact_us_async(subject, email_from, message_body):
+    subject = f"Contact us: {subject}"
+    message_body = f'''
+            Support Email
+
+            From: {email_from}
+            Message: {message_body}
+            '''
+    email_from = settings.EMAIL_HOST_USER
+    send_mail(
+        subject,
+        message_body,
+        email_from,
+        [email_from],
+        fail_silently=False,
+    )
 
 
 @shared_task

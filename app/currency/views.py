@@ -1,5 +1,4 @@
-from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.request import QueryDict
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView, View
@@ -8,8 +7,8 @@ from django_filters.views import FilterView
 from currency.forms import RateForm, ContactUsForm
 from currency.models import Rate, ContactUs
 from currency.filters import RateFilter
+from currency.tasks import contact_us_async
 
-from django.conf import settings
 
 
 class RateList(FilterView):
@@ -56,7 +55,7 @@ class RateDelete(DeleteView):
     success_url = reverse_lazy('currency:rate_list')
 
 
-class ContactUsCreate(CreateView):
+class ContactUsCreate(LoginRequiredMixin, CreateView):
     '''
     SMTP - simple mail transfer protocol
     '''
@@ -67,24 +66,12 @@ class ContactUsCreate(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-
         data = form.cleaned_data
-        subject = f"Contact us: {data['subject']}"
-        message_body = f'''
-        Support Email
-        
-        From: {data['email']}
-        Message: {data['message_body']}
-        '''
-        email_from = settings.EMAIL_HOST_USER
-        send_mail(
-            subject,
-            message_body,
-            email_from,
-            [email_from],
-            fail_silently = False,
+        contact_us_async.delay(
+            data['subject'],
+            data['email'],
+            data['message_body'],
         )
-
         return response
 
     def form_invalid(self, form):

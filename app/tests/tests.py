@@ -8,13 +8,13 @@ def test_index(client):
     assert response.status_code == 200
 
 
-def test_contact_us_get(client):
-    response = client.get('/currency/contact-us/')
+def test_contact_us_get(admin_custom_client):
+    response = admin_custom_client.get('/currency/contact-us/')
     assert response.status_code == 200
 
 
-def test_contact_us_post_empty_data(client):
-    response = client.post('/currency/contact-us/')
+def test_contact_us_post_empty_data(admin_custom_client):
+    response = admin_custom_client.post('/currency/contact-us/')
     assert response.status_code == 200  # when post 200 is error
     assert response.context_data['form'].errors == {
         'subject': ['This field is required.'],
@@ -23,7 +23,7 @@ def test_contact_us_post_empty_data(client):
     }
 
 
-def test_contact_us_post_valid_data(client, mailoutbox):
+def test_contact_us_post_valid_data(admin_custom_client, mailoutbox):
     initial_count = ContactUs.objects.count()
 
     payload = {
@@ -31,7 +31,7 @@ def test_contact_us_post_valid_data(client, mailoutbox):
         'email': 'emailcontactus@example.com',
         'message_body': 'Example Text\n' * 10,
     }
-    response = client.post('/currency/contact-us/', data=payload)
+    response = admin_custom_client.post('/currency/contact-us/', data=payload)
     assert response.status_code == 302
     assert response.url == '/'
 
@@ -42,14 +42,14 @@ def test_contact_us_post_valid_data(client, mailoutbox):
     assert ContactUs.objects.count() == initial_count + 1
 
 
-def test_contact_us_post_invalid_email(client, mailoutbox):
+def test_contact_us_post_invalid_email(admin_custom_client, mailoutbox):
     initial_count = ContactUs.objects.count()
     payload = {
         'subject': 'Subject Example',
         'email': 'emailcontactus',
         'message_body': 'Example Text\n' * 10,
     }
-    response = client.post('/currency/contact-us/', data=payload)
+    response = admin_custom_client.post('/currency/contact-us/', data=payload)
     assert response.status_code == 200
     assert response.context_data['form'].errors == {'email': ['Enter a valid email address.']}
     assert len(mailoutbox) == 0
