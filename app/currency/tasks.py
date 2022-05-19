@@ -1,4 +1,5 @@
 from decimal import Decimal
+from time import sleep
 
 from celery import shared_task
 import requests
@@ -14,6 +15,18 @@ def round_decimal(value: str) -> Decimal:
     """
     places = Decimal(10) ** -2
     return Decimal(value).quantize(places)
+
+
+@shared_task
+def debug_io():
+    sleep(10)
+
+
+@shared_task
+def debug_cpu():
+    n = 500_000_000
+    while n != 0:
+        n -= 1
 
 
 @shared_task
