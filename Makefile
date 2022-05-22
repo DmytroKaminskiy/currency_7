@@ -11,6 +11,9 @@ shell:
 run:
 	$(manage_py) runserver 0:8000
 
+gunicorn:
+	 cd app && gunicorn settings.wsgi --threads 2 --workers 4 --log-level debug --max-requests 1000 --timeout 10 --bind=0.0.0.0:8000
+
 run-dev: migrate \
 	run
 

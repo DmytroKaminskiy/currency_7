@@ -52,6 +52,9 @@ class User(AbstractUser):
 
         return static('img/anon_user.png')
 
+    def datamigration_example(self):
+        return self.get_full_name()
+
 '''
 password = hash('admin');
 SELECT * FROM user WHERE username = 'admin' AND password = password;

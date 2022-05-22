@@ -7,6 +7,7 @@ drf-yasg
 djangorestframework-xml
 djangorestframework-csv
 djangorestframework-simplejwt
+gunicorn
 
 # dev
 django-debug-toolbar

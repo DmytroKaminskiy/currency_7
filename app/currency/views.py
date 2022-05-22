@@ -84,6 +84,16 @@ class ExampleView(View):
         from django.http import HttpResponse
         from django.contrib.sessions.models import Session
         from django.contrib.auth.models import User
+        from threading import current_thread
+        from multiprocessing import current_process
+        print(f'Current Thread: {current_thread()}')
+        print(f'Current Process: {current_process()}')
+
+        from time import sleep
+        sleep(3)
+
+
+        return HttpResponse('OK')
 
         # print(request.COOKIES['sessionid'])
         session_id = request.COOKIES.get('sessionid')
