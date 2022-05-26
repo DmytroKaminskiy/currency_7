@@ -227,3 +227,8 @@ SIMPLE_JWT = {
 }
 
 MINUTES_BEFORE_ALLOW_DELETE_RATE = 1
+
+try:
+    from settings.settings_local import *
+except ImportError:
+    print('settings_local.py is not found.')

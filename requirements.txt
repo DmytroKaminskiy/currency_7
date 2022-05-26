@@ -8,6 +8,7 @@ djangorestframework-xml
 djangorestframework-csv
 djangorestframework-simplejwt
 gunicorn
+psycopg2-binary
 
 # dev
 django-debug-toolbar

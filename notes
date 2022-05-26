@@ -18,3 +18,6 @@ TDD - test driven development
 BDD - Behavior Driven development
 
 1. Добавить юнит тесты для ContactUs (API)
+
+1. On Premise server
+2. Cloud server (AWS (EC2), GCP (Compute Engine), Azure, DigitalOcean (Droplet), Hetzner, pythonanywhere)
