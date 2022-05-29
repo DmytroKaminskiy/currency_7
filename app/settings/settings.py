@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+import os
 from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.urls import reverse_lazy
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,13 +24,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+environ.Env.read_env(os.path.join(BASE_DIR, '..', '.env'))
+# print(os.path.abspath(os.path.join(BASE_DIR, '..', '.env')))
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r8u40cy@q(esob56kh)pr9m5!(1g_snyb+d294*hzg544_*9ja'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
+print(f'DEBUG: {DEBUG}')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']  # TODO envs
 
 
 # Application definition
@@ -89,10 +100,20 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['POSTGRES_DB'],
+        'USER': os.environ['POSTGRES_USER'],
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+        'PORT': os.environ.get('POSTGRES_POST', '5432'),
     }
 }
 
@@ -153,6 +174,7 @@ if DEBUG:
     INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
 
 
+# TODO envs
 # email settings
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -169,6 +191,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 
 # Custom settings
+# TODO envs
 DOMAIN = 'localhost:8000'
 HTTP_SCHEMA = 'http'
 
@@ -176,7 +199,16 @@ HTTP_SCHEMA = 'http'
 MEDIA_ROOT = BASE_DIR / '..' / 'static_content' / 'media'
 MEDIA_URL = '/media/'
 
-CELERY_BROKER_URL = f'amqp://guest:guest@localhost:5672//'
+# CELERY_BROKER_URL = f'amqp://guest:guest@localhost:5672//'
+RABBITMQ_DEFAULT_USER = os.environ["RABBITMQ_DEFAULT_USER"]
+RABBITMQ_DEFAULT_PASS = os.environ["RABBITMQ_DEFAULT_PASS"]
+RABBITMQ_DEFAULT_HOST = os.environ.get("RABBITMQ_DEFAULT_HOST", "localhost")
+RABBITMQ_DEFAULT_PORT = os.environ.get("RABBITMQ_DEFAULT_PORT", "5672")
+
+
+CELERY_BROKER_URL = f'amqp://{RABBITMQ_DEFAULT_USER}:{RABBITMQ_DEFAULT_PASS}@' \
+        f'{RABBITMQ_DEFAULT_HOST}:{RABBITMQ_DEFAULT_PORT}//'
+
 CELERY_BEAT_SCHEDULE = {
     'parse_privatbank': {
         'task': 'currency.tasks.parse_privatbank',

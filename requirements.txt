@@ -9,6 +9,7 @@ djangorestframework-csv
 djangorestframework-simplejwt
 gunicorn
 psycopg2-binary
+django-environ
 
 # dev
 django-debug-toolbar
