@@ -10,6 +10,7 @@ djangorestframework-simplejwt
 gunicorn
 psycopg2-binary
 django-environ
+django-storages
 
 # dev
 django-debug-toolbar
