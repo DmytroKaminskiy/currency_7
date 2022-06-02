@@ -154,7 +154,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = os.environ.get('STATIC_URL', '/static/')
 STATICFILES_DIRS = [
     BASE_DIR / 'accounts' / 'static',
 ]
@@ -259,8 +259,3 @@ SIMPLE_JWT = {
 }
 
 MINUTES_BEFORE_ALLOW_DELETE_RATE = 1
-
-try:
-    from settings.settings_local import *
-except ImportError:
-    print('settings_local.py is not found.')

@@ -20,6 +20,7 @@ class RateList(FilterView):
     def get_context_data(self, *args, **kwargs):
         # print(self.__class__.__mro__)
         context = super().get_context_data(*args, **kwargs)
+        breakpoint()
 
         query_params = QueryDict(mutable=True)
         for key, value in self.request.GET.items():

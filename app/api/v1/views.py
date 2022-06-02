@@ -30,7 +30,7 @@ class RateViewSet(viewsets.ModelViewSet):
     queryset = Rate.objects.all()
     serializer_class = RateSerializer
     renderer_classes = (JSONRenderer, XMLRenderer, CSVRenderer)
-    # pagination_class = RatesPagination
+    pagination_class = RatesPagination
     filterset_class = RateFilter
     filter_backends = (
         filters.DjangoFilterBackend,
