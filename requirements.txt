@@ -11,6 +11,7 @@ gunicorn
 psycopg2-binary
 django-environ
 django-storages
+boto3
 
 # dev
 django-debug-toolbar
