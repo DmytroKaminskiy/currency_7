@@ -19,6 +19,11 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
+    class Meta:
+        permissions = [
+            ("can_change_email", "Can change the user email"),
+        ]
+
     # objects = CustomUserManager()
 
     # TODO
@@ -58,4 +63,9 @@ class User(AbstractUser):
 '''
 password = hash('admin');
 SELECT * FROM user WHERE username = 'admin' AND password = password;
+
+
+1. В админке показать записи Source
+2. В админке показать ContactUs, создать-редактировать-удалять действия нужно запретить
+3. https://github.com/jazzband/django-silk
 '''

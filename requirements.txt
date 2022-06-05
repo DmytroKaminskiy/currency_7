@@ -12,6 +12,8 @@ psycopg2-binary
 django-environ
 django-storages
 boto3
+django-admin-rangefilter
+django-admin-numeric-filter
 
 # dev
 django-debug-toolbar

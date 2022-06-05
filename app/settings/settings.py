@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'rest_framework_simplejwt',
+    'rangefilter',
+    # 'admin_numeric_filter',
 
     'accounts',
     'currency',
@@ -72,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'accounts.middlewares.TimezoneMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -89,6 +92,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processors.product_info',
             ],
         },
     },
@@ -149,6 +153,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+BASE_PRODUCT_PRICE = 99.99
 
 
 # Static files (CSS, JavaScript, Images)
