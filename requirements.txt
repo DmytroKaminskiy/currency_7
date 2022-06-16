@@ -14,6 +14,7 @@ django-storages
 boto3
 django-admin-rangefilter
 django-admin-numeric-filter
+pymemcache
 
 # dev
 django-debug-toolbar

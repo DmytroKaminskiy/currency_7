@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
 
 from django.conf import settings
+from django.utils.decorators import method_decorator
 from django.utils.timesince import timesince
+from django.views.decorators.cache import cache_page
 from rest_framework import generics, viewsets, status
 from rest_framework.response import Response
 
@@ -38,6 +40,10 @@ class RateViewSet(viewsets.ModelViewSet):
     )
     ordering_fields = ('id', 'sale', 'buy')
     throttle_classes = [AnonCurrencyThrottle]
+
+    @method_decorator(cache_page(60 * 60 * 24 * 7))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

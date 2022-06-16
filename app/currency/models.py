@@ -21,6 +21,11 @@ class Rate(models.Model):
     sale = models.DecimalField(max_digits=10, decimal_places=2)
     source = models.ForeignKey(Source, on_delete=models.CASCADE, related_name='rates')
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # clear cache for rates
+
+    # def delete(self, using=None, keep_parents=False):
 
 class ContactUs(models.Model):
     subject = models.CharField(max_length=128)
