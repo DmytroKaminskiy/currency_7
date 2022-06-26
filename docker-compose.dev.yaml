@@ -9,3 +9,11 @@ services:
       - "8001:8001"
     environment:
       - DEBUG=True
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - "5050:5050"
+    env_file:
+      - .env
